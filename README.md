@@ -7,7 +7,7 @@
 This repository provides the official PyTorch implementation for the following paper:
 
 **Advanced Feature Learning on Point Clouds using Multi-resolution Features and Learnable Pooling**<br>
-Kevin Tirta Wijaya, Dong-Hee Paek, and [Seung-Hyun Kong](http://ave.kaist.ac.kr/)<br>
+[Kevin Tirta Wijaya](https://www.ktirta.xyz), Dong-Hee Paek, and [Seung-Hyun Kong](http://ave.kaist.ac.kr/)<br>
 [\[**arXiv**\]](https://arxiv.org/abs/2205.09962)
 > **Abstract:** *Existing point cloud feature learning networks often incorporate sequences of sampling, neighborhood grouping, neighborhood-wise feature learning, and feature aggregation to learn high-semantic point features that represent the global context of a point cloud.
 Unfortunately, such a process may result in a substantial loss of granular information due to the sampling operation.
@@ -21,4 +21,77 @@ Therefore, the final aggregated point features can effectively represent both gl
 In addition, both the global structure and the local shape details of a point cloud can be well comprehended by the network head, which enables PointStack to advance the state-of-the-art of feature learning on point clouds.
 Specifically, PointStack outperforms various existing feature learning networks for shape classification and part segmentation on the ScanObjectNN and ShapeNetPart datasets.*
 
-We will make the codes and pre-trained models public in the near future.
+## Preparations
+
+**To install the requirements**:
+
+```setup
+# 1. Create new environment
+conda create -n <environment name> python=3.7
+
+# 2. Install PyTorch with corresponding cudatoolkit, for example,
+pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
+
+# 3. Install other requirements
+pip install -r requirements.txt
+```
+
+**To prepare the dataset**:
+
+1. Create empty directories for 'modelnet40', 'partnormal', and 'scanobjectnn' inside './data' directory.
+2. Download the corresponding dataset for [Modelnet40](https://github.com/AnTao97/PointCloudDatasets), [ShapeNetPart](https://shapenet.cs.stanford.edu/media/shapenetcore_partanno_segmentation_benchmark_v0_normal.zip), and [ScanObjectNN](https://hkust-vgd.github.io/scanobjectnn/).
+3. Create 'data' and 'experiments' directories on the workspace, and organize as follows,
+
+```
+./
+  |-- cfgs
+  |-- core
+  |-- data
+        |-- modelnet40
+              |-- .json files
+              |-- .txt files
+        |-- partnormal
+              |-- dirs
+              |-- synsetoffset2category.txt
+        |-- scanobjectnn
+              |-- dirs
+  |-- experiments
+```
+
+## Training
+
+To train the network, run this command:
+
+```train
+python train.py --cfg_file <path_to_cfg_yaml (str)> --exp_name <experiment_name (str)> --val_steps <eval_every_x_epoch (int)>
+```
+
+## Evaluation
+
+To evaluate the network with pre-trained weights, run:
+
+```eval
+python test.py --cfg_file <path_to_cfg_yaml (str)> --ckpt <path_to_ckpt_pth (str)>
+```
+
+## Results
+
+Our pretrained model achieves the following performances on :
+
+### [3D Point Cloud Shape Classification on ModelNet40](https://paperswithcode.com/sota/3d-point-cloud-classification-on-modelnet40)
+
+| Model name         | Overall Accuracy  | Class Mean Accuracy |
+| ------------------ |---------------- | -------------- |
+| [PointStack](https://drive.google.com/file/d/1Emw8kR48htvPSNZ7e2UjO1CKy8W857s6/view?usp=sharing)   |     93.3         |      89.6%       |
+
+### [3D Point Cloud Shape Classification on ScanObjectNN](https://paperswithcode.com/sota/3d-point-cloud-classification-on-scanobjectnn)
+
+| Model name         | Overall Accuracy  | Class Mean Accuracy |
+| ------------------ |---------------- | -------------- |
+| [PointStack](https://drive.google.com/file/d/1XTfYSkc0m4GKEhcV0wLAsb8GJ3-hBaiz/view?usp=sharing)   |     87.2%         |      86.2%       |
+
+### [3D Part Segmentation on ShapeNetPart](https://paperswithcode.com/sota/3d-part-segmentation-on-shapenet-part)
+
+| Model name         | Instance mIoU  | 
+| ------------------ |---------------- |
+| [PointStack](https://drive.google.com/file/d/1Gab0_Cmdc-QFDgdMnWNMCP1NnE4_Uex1/view?usp=sharing)   |     87.2%         |
