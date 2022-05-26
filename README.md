@@ -7,7 +7,7 @@
 This repository provides the official PyTorch implementation for the following paper:
 
 **Advanced Feature Learning on Point Clouds using Multi-resolution Features and Learnable Pooling**<br>
-[Kevin Tirta Wijaya](https://www.ktirta.xyz), Dong-Hee Paek, and [Seung-Hyun Kong](http://ave.kaist.ac.kr/)<br>
+[Kevin Tirta Wijaya](https://www.ktirta.xyz), [Dong-Hee Paek](http://ave.kaist.ac.kr/bbs/board.php?bo_table=sub1_2&wr_id=5), and [Seung-Hyun Kong](http://ave.kaist.ac.kr/)<br>
 [\[**arXiv**\]](https://arxiv.org/abs/2205.09962)
 > **Abstract:** *Existing point cloud feature learning networks often incorporate sequences of sampling, neighborhood grouping, neighborhood-wise feature learning, and feature aggregation to learn high-semantic point features that represent the global context of a point cloud.
 Unfortunately, such a process may result in a substantial loss of granular information due to the sampling operation.
